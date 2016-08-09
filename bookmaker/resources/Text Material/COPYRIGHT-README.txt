@@ -1,0 +1,1 @@
+Please not that while the entire code for this project is under the GNU GPL3 license, the source texts in this folder are NOT. They are under the CC BY-NC-ND and are owned by Cat Toren. If you would like to use the program to generate a poem book from a modified source text, please do not do so by modifying the existing source texts. 
