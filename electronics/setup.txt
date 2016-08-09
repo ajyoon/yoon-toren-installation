@@ -1,0 +1,25 @@
+﻿Setup instructions
+==================
+
+1) Install the latest version of Python 3.
+https://www.python.org/downloads/
+
+2) Install project requirements using pip from your computer's terminal:
+-------------------------------
+cd /path/to/drone/folder
+pip install -r requirements.txt
+-------------------------------
+This may take some time.
+
+3) To launch the program, simply run main.py with python in your terminal:
+------------------------
+cd /path/to/drone/folder
+python main.py
+------------------------
+Make sure that the input and output devices are connected
+before launching the program.
+
+The program uses input from your computer's primary audio input channel.
+This should lead to a simple microphone which captures the sound on stage.
+The exact position and quality of the microphone is not crucial, as
+it is only used to measure the amplitude of the on-stage sound.
