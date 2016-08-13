@@ -6,6 +6,9 @@ import time
 import signal
 import sys
 
+from pprint import pprint
+
+from electronics import cli_argparser
 from electronics import replayer
 from electronics import amplitude
 from electronics.amp_threshold_tracker import AmpThresholdTracker
@@ -16,14 +19,16 @@ from electronics.frequency_map import frequency_map
 
 # Make sure we're running the right version of Python
 if sys.version_info[0] != 3:
-    print("This program must be run on Python 3, make sure Python 3 \n"
-          "is on your system path. see the Python website for help.")
+    print('This program must be run on Python 3, make sure Python 3 \n'
+          'is on your environment path. see the Python website for help.')
     sys.exit(1)
 
-# Basic config ################################################################
+# Get command line arguments ##################################################
 
-# TODO: take a command line arg for this value
-DEBUG = True
+cli_args = cli_argparser.parser.parse_args()
+DEBUG = cli_args.debug
+INPUT_DEVICE_INDEX = cli_args.input_device_index
+OUTPUT_DEVICE_INDEX = cli_args.output_device_index
 
 # Set up script state #########################################################
 
@@ -114,6 +119,11 @@ def main_callback(in_data, frame_count, time_info, status):
 
 # Main script execution #######################################################
 
+# Print program introduction and instructions for how to exit
+print('Yoon/Toren Installation 5/10/2016 - Audio Processing Script\n'
+      'To exit, press Control-C.')
+
+# Launch PyAudio instance
 pa_host = pyaudio.PyAudio()
 main_stream = pyaudio.Stream(pa_host,
                              rate=config.SAMPLE_RATE,
@@ -121,18 +131,19 @@ main_stream = pyaudio.Stream(pa_host,
                              format=config.STREAM_FORMAT,
                              input=True,
                              output=True,
-                             input_device_index=config.INPUT_DEVICE_INDEX,
-                             output_device_index=config.OUTPUT_DEVICE_INDEX,
+                             input_device_index=INPUT_DEVICE_INDEX,
+                             output_device_index=OUTPUT_DEVICE_INDEX,
                              frames_per_buffer=config.CHUNK_SIZE,
                              stream_callback=main_callback)
 main_stream.start_stream()
 
 # Print device information for all available devices
 if DEBUG:
+    print('Available device information =================================')
     try:
         x = 0
         while True:
-            print(pa_host.get_device_info_by_host_api_device_index(0, x))
+            pprint(pa_host.get_device_info_by_host_api_device_index(0, x))
             x += 1
     except IOError:
         pass

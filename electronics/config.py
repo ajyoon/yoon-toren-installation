@@ -7,8 +7,8 @@ import pyaudio
 # These device indices may need to be modified depending on the
 # audio configuration of your machine. To view a list of available device
 # device indices, go to run_electronics.py, set DEBUG=True, and run the script.
-INPUT_DEVICE_INDEX = 3
-OUTPUT_DEVICE_INDEX = 3
+DEFAULT_INPUT_DEVICE_INDEX = 3
+DEFAULT_OUTPUT_DEVICE_INDEX = 3
 
 NUM_CHANNELS = 1
 SAMPLE_RATE = 44100

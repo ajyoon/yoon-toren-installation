@@ -1,6 +1,6 @@
 # Yoon/Toren Installation 5/10/2016
 
-Two programs used as part of an installation built by Cat Toren and Andrew 
+Two programs used as part of an installation built by Cat Toren and Andrew
 Yoon which was up on May 10, 2016 at Purchase College.
 
 #### About the Original Project
@@ -9,10 +9,10 @@ A microphone was set up in front of a printed booklet of algorithmically
 built text. Viewers of the installation were encouraged to read from the
 text into the microphone. A series of digital sine wave oscillators
 spontaneously played tones while audio captured from the microphone was
-remembered and recalled over time. 
+remembered and recalled over time.
 
 The seed text which formed the basis of the algorithmically built text was
-written by Cat Toren while Andrew Yoon wrote the programs which transformed 
+written by Cat Toren while Andrew Yoon wrote the programs which transformed
 the text and which processed and generated the sound.
 
 You can listen to a recording of the installation online
@@ -47,12 +47,16 @@ To run the audio processing program, run `python run_electronics.py`.
 
 ### Troubleshooting
 
+###### run_electronics.py
 Depending on the audio environment of your system, you may need to modify the
-device indices used by the program. To do so, open `electronics/config.py`
-and edit `INPUT_DEVICE_INDEX` and `OUTPUT_DEVICE_INDEX` to whatever device
-index handles your audio I/O. To view a list of available device
-device indices, go to `run_electronics.py`, set `DEBUG=True`,
-and run the script.
+I/O device indices used by the program. You can temporarily set these with the
+`-i your_input_device_index` and `-o your_output_device_index` arguments.
+To change the default indices used, open `electronics/config.py`
+and edit `DEFAULT_INPUT_DEVICE_INDEX` and `DEFAULT_OUTPUT_DEVICE_INDEX`.
+
+To view a list of available devices and their indices,
+run the program with the debug flag `-d` or `--debug`
+ie. `python run_electronics.py --debug`.
 
 ### Things that may not work yet
 
