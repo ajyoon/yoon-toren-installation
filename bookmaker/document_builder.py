@@ -14,13 +14,14 @@ from bookmaker import prebuilt_graphs
 from bookmaker import reportlab_utils
 from bookmaker import text_unit
 
-_PUNCTUATION_LIST = [',', '.', ':', '!', '?', '"', '\'', ';']
-
 
 class DocumentBuilder:
     """
     The class responsible for generating the book.
     """
+
+    _PUNCTUATION_LIST = [',', '.', ':', '!', '?', '"', '\'', ';']
+
     def __init__(self, word_graphs,
                  font_size=11, font_name='Cormorant Garamond',
                  title=None, draw_header=True):
@@ -71,7 +72,7 @@ class DocumentBuilder:
 
         # Main item population loop
         for i in range(item_count):
-            # Determine if we should change networks (crude for now)
+            # Determine if we should change networks (crude)
             if rand.prob_bool(0.01):
                 old_network = current_network
                 while current_network == old_network:
@@ -115,7 +116,7 @@ class DocumentBuilder:
                 self.flowable_list.append(
                         reportlab.platypus.Spacer(
                                 16, self.paragraph_style.fontSize))
-            elif current_item.name in _PUNCTUATION_LIST:
+            elif current_item.name in DocumentBuilder._PUNCTUATION_LIST:
                 # Punctuation marks
                 temp_string = current_item.name
                 current_line.add_text_unit(text_unit.TextUnit(temp_string))
@@ -153,13 +154,14 @@ class DocumentBuilder:
             canvas.saveState()
             canvas.setFont(self.paragraph_style.fontName,
                            self.paragraph_style.fontSize)
-            if self.title is not None:
+            if self.title:
                 canvas.drawCentredString((8.5 * units.inch) / 2,
                                          header_y_position,
                                          self.title)
             canvas.drawString(page_number_x_position, header_y_position,
                               str(page_number))
             canvas.restoreState()
+
         output_doc = reportlab.platypus.SimpleDocTemplate(output_file)
         output_doc.pagesize = (8.5 * units.inch, 11 * units.inch)
         if self.draw_header:

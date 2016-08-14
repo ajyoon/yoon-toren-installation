@@ -11,38 +11,40 @@ def indenter():
 
     Returns:
         blur.markov.graph.Graph: A markov graph representing
-            indentation values
-    :return: instance of chance.network.Network
+            the change in indentation value from one line to the next.
+            All values are in 72-dpi points.
     """
-    n1 = nodes.Node(0)
-    n2 = custom_nodes.SoftFloatNode([(1, 20), (3, 3), (11, 1)])
-    n3 = custom_nodes.SoftFloatNode([(-1, 20), (-3, 3), (-11, 1)])
-    n4 = custom_nodes.SoftFloatNode([(14, 5), (85, 25), (110, 1), (170, 10)])
-    n5 = custom_nodes.SoftFloatNode([(-14, 5), (-85, 25),
-                                     (-110, 1), (-170, 10)])
+    # All values in 72-dpi points
+    stay = nodes.Node(0)
+    short_right = custom_nodes.SoftFloatNode([(1, 20), (3, 3), (6, 1)])
+    short_left = custom_nodes.SoftFloatNode([(-1, 20), (-3, 3), (-6, 1)])
+    far_right = custom_nodes.SoftFloatNode([(8, 5), (85, 25),
+                                            (110, 1), (170, 10)])
+    far_left = custom_nodes.SoftFloatNode([(-8, 5), (-85, 25),
+                                           (-110, 1), (-170, 10)])
 
-    n1.add_link(n1, 40)
-    n1.add_link(n2, 3)
-    n1.add_link(n3, 3)
-    n1.add_link(n4, 10)
-    n1.add_link(n5, 10)
+    stay.add_link(stay, 40)
+    stay.add_link(short_right, 3)
+    stay.add_link(short_left, 3)
+    stay.add_link(far_right, 10)
+    stay.add_link(far_left, 10)
 
-    n2.add_link(n1, 60)
-    n2.add_link(n2, 100)
-    n2.add_link(n3, 50)
-    n2.add_link(n4, 10)
-    n2.add_link(n5, 10)
+    short_right.add_link(stay, 60)
+    short_right.add_link(short_right, 100)
+    short_right.add_link(short_left, 50)
+    short_right.add_link(far_right, 10)
+    short_right.add_link(far_left, 10)
 
-    n3.add_link(n1, 60)
-    n3.add_link(n2, 30)
-    n3.add_link(n3, 100)
-    n3.add_link(n4, 20)
+    short_left.add_link(stay, 60)
+    short_left.add_link(short_right, 30)
+    short_left.add_link(short_left, 100)
+    short_left.add_link(far_right, 20)
 
-    n4.add_link(n1, 10)
+    far_right.add_link(stay, 10)
 
-    n5.add_link(n1, 30)
+    far_left.add_link(stay, 30)
 
-    return graph.Graph([n1, n2, n3, n4, n5])
+    return graph.Graph([stay, short_right, short_left, far_right, far_left])
 
 
 def text_pause_or_write():

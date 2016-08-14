@@ -1,5 +1,5 @@
 wavefile==1.5
 numpy>=1.8.2
 PyAudio>=0.2.7
-reportlab
-blur==0.1
+reportlab>=3.3.0
+blur>=0.2
